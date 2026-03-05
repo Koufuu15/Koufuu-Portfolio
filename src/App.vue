@@ -6,39 +6,52 @@
       class="panel"
       :style="getStyle(index)"
     >
-      <h1>{{ panel }}</h1>
+      <component :is="panel" />
     </section>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import * as anime from 'animejs'
 
-const panels = ['Hero', 'About', 'Works', 'Contact']
+import Hero from './components/Hero.vue'
+import About from './components/About.vue'
+import Works from './components/Works.vue'
+import Contact from './components/Contact.vue'
+
+const panels = [Hero, About, Works, Contact]
 
 const currentIndex = ref(0)
 const scale = ref(1)
 const visiblePanels = ref([panels[0], panels[1]])
 
-const scrollAmount = 0.0015
+const scrollAmount = 0.0008
 
 function handleWheel(e) {
-  if (e.deltaY > 0) {
-    scale.value -= scrollAmount * Math.abs(e.deltaY)
-  } else {
-    scale.value += scrollAmount * Math.abs(e.deltaY)
-  }
+  const delta = e.deltaY
 
-  if (scale.value <= 0.5) {
+  let newScale =
+    scale.value - scrollAmount * Math.abs(delta)
+
+  if (newScale <= 0.5) {
     nextPanel()
-    scale.value = 1
+    newScale = 1
   }
 
-  if (scale.value > 1) scale.value = 1
+  if (newScale > 1) newScale = 1
+
+  anime({
+    targets: scale,
+    value: newScale,
+    duration: 300,
+    easing: 'easeOutQuad'
+  })
 }
 
 function nextPanel() {
-  currentIndex.value = (currentIndex.value + 1) % panels.length
+  currentIndex.value =
+    (currentIndex.value + 1) % panels.length
 
   const next =
     panels[(currentIndex.value + 1) % panels.length]
@@ -64,7 +77,9 @@ function getStyle(index) {
 }
 
 onMounted(() => {
-  window.addEventListener('wheel', handleWheel, { passive: true })
+  window.addEventListener('wheel', handleWheel, {
+    passive: true
+  })
 })
 </script>
 
@@ -85,13 +100,11 @@ onMounted(() => {
   transform-origin: center;
   translate: -50% -50%;
 
-  /* ===== スタイルA ===== */
   padding: 80px 10vw;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-  transition: transform 0.1s linear;
 }
 </style>
