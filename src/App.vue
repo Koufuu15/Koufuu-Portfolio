@@ -12,8 +12,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import * as anime from 'animejs'
+import { shallowRef, onMounted, ref } from 'vue'
+import { animate } from 'animejs'
 
 import Hero from './components/Hero.vue'
 import About from './components/About.vue'
@@ -24,29 +24,32 @@ const panels = [Hero, About, Works, Contact]
 
 const currentIndex = ref(0)
 const scale = ref(1)
-const visiblePanels = ref([panels[0], panels[1]])
+const visiblePanels = shallowRef([panels[0], panels[1]])
 
 const scrollAmount = 0.0008
 
 function handleWheel(e) {
-  const delta = e.deltaY
-
-  let newScale =
-    scale.value - scrollAmount * Math.abs(delta)
-
-  if (newScale <= 0.5) {
-    nextPanel()
-    newScale = 1
+  if (e.deltaY > 0) {
+    scale.value -= scrollAmount * Math.abs(e.deltaY)
+  } else {
+    scale.value += scrollAmount * Math.abs(e.deltaY)
   }
 
-  if (newScale > 1) newScale = 1
+  if (scale.value <= 0.5) {
+    nextPanel()
+    scale.value = 1
+  }
 
-  anime({
+  if (scale.value > 1) scale.value = 1
+
+  /*
+  animate({
     targets: scale,
     value: newScale,
     duration: 300,
     easing: 'easeOutQuad'
   })
+  */
 }
 
 function nextPanel() {
