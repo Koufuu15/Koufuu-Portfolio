@@ -26,7 +26,7 @@ const currentIndex = ref(0)
 const scale = ref(1)
 const visiblePanels = shallowRef([panels[0], panels[1]])
 
-const scrollAmount = 0.0008
+const scrollAmount = 0.0005
 
 function handleWheel(e) {
   if (e.deltaY > 0) {
@@ -107,7 +107,8 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-image: url("./assets/bg_ainu.png");
+  background-size: contain;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 </style>

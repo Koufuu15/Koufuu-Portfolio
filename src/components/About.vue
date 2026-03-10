@@ -26,15 +26,74 @@
 </template>
 
 <style scoped>
+/* セクション */
+div {
+  max-width: 1000px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+/* タイトル */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  letter-spacing: 2px;
+  color: #222;
+}
+
+/* グリッド */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 30px;
 }
 
+/* カード */
 .box {
-  background: rgba(255,255,255,0.8);
-  border-radius: 16px;
-  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ホバー */
+.box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* 見出し */
+.box h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* リスト */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+/* strong */
+strong {
+  color: #111;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
