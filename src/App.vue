@@ -40,7 +40,13 @@ function handleWheel(e) {
     scale.value = 1
   }
 
-  if (scale.value > 1) scale.value = 1
+  if (scale.value >= 1.05) {
+    prevPanel()
+    scale.value = 0.5
+  }
+
+  if (scale.value > 1.5) scale.value = 1.5
+}
 
   /*
   animate({
@@ -50,11 +56,24 @@ function handleWheel(e) {
     easing: 'easeOutQuad'
   })
   */
-}
 
 function nextPanel() {
   currentIndex.value =
     (currentIndex.value + 1) % panels.length
+
+  const next =
+    panels[(currentIndex.value + 1) % panels.length]
+
+  visiblePanels.value = [
+    panels[currentIndex.value],
+    next
+  ]
+}
+
+function prevPanel() {
+
+  currentIndex.value =
+    (currentIndex.value - 1 + panels.length) % panels.length
 
   const next =
     panels[(currentIndex.value + 1) % panels.length]

@@ -114,7 +114,7 @@ h2 {
 
 /* GitHub */
 .contact li:nth-child(4):hover {
-  background: #333;
+  background: purple;
 }
 
 .contact li:nth-child(4):hover a {

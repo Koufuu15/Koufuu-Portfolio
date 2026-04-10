@@ -7,7 +7,7 @@
 
 <style scoped>
 .hero h1 {
-  font-size: 42px;
+  font-size: 60px;
   margin-bottom: 16px;
 }
 

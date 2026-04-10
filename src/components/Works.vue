@@ -26,9 +26,9 @@
     <!-- dots -->
     <div class="dots">
       <span
-        v-for="(w,i) in works.length-2"
+        v-for="(w,i) in works"
         :key="i"
-        :class="{active: i===current}"
+        :class="{active: i===(current + 1) % works.length}"
         @click="current=i"
       ></span>
     </div>
@@ -57,11 +57,7 @@ export default {
 
       setInterval(()=>{
 
-        current.value++
-
-        if(current.value > works.length-3){
-          current.value = 0
-        }
+        current.value = (current.value + 1) % works.length
 
       },4000)
 
@@ -78,7 +74,7 @@ export default {
 .works-section{
   max-width:1100px;
   margin:auto;
-  padding:60px 20px;
+  padding:30px 20px;
 }
 
 h2{
@@ -88,7 +84,7 @@ h2{
 /* slider */
 
 .slider{
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 .slides{
@@ -99,7 +95,7 @@ h2{
 /* card */
 
 .card{
-
+  height: 200px;
   min-width:33.33%;
   margin:0 10px;
 
