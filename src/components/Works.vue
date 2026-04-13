@@ -15,8 +15,13 @@
           v-for="(work,i) in works"
           :key="i"
         >
-          <h3>{{work.title}}</h3>
-          <p>{{work.text}}</p>
+          <h3>
+            <a :href="work.link" target="_blank" rel="noopener noreferrer">{{work.title}}</a>
+          </h3>
+          <p>{{work.date}}</p>
+          <span class="label" :style="{ backgroundColor: labels[work.category] }">
+            {{work.category}}
+          </span>
         </div>
 
       </div>
@@ -44,13 +49,18 @@ export default {
   setup(){
 
     const works = [
-      {title:"Security Blog",text:"Write-ups about CTF"},
-      {title:"CTF Tools",text:"Automation tools"},
-      {title:"Web Apps",text:"Full stack apps"},
-      {title:"Reverse Research",text:"Binary analysis"},
-      {title:"Security Scripts",text:"Python tools"}
+      {title:"Zenn",date:"Since 2025",category:"Blog",link:"https://zenn.dev/koufu"},
+      {title:"Qiita",date:"Since 2025",category:"Blog",link:"https://qiita.com/nade_3356"},
+      {title:"picoCTF",date:"2026.3",category:"CTF",link:"https://github.com/0x00h/web-apps"},
+      {title:"Milldea, LLC",date:"Since 2025.10",category:"Part-time job",link:"https://www.milldea.com/"}
     ]
 
+    const labels = {
+      "Blog": "#B7E4C7",
+      "CTF": "#A9C9FF",
+      "Part-time job": "#FFB4A2"
+    }
+    
     const current = ref(0)
 
     onMounted(()=>{
@@ -63,7 +73,7 @@ export default {
 
     })
 
-    return {works,current}
+    return {works,current,labels}
 
   }
 
@@ -79,6 +89,22 @@ export default {
 
 h2{
   margin-bottom:40px;
+}
+
+h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h3 a:hover {
+  text-decoration: underline;
+}
+
+.label {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 14px;
+  border-radius: 4px;
 }
 
 /* slider */
