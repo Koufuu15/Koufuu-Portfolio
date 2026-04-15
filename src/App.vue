@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div class="wrapper">
     <section
       v-for="(panel, index) in visiblePanels"
@@ -15,6 +16,7 @@
 import { shallowRef, onMounted, ref } from 'vue'
 import { animate } from 'animejs'
 
+import Header from './components/Header.vue'
 import Hero from './components/Hero.vue'
 import About from './components/About.vue'
 import Works from './components/Works.vue'
@@ -107,6 +109,7 @@ onMounted(() => {
 
 <style scoped>
 .wrapper {
+  margin-top: 60px; /* Headerの高さ分ずらす */
   position: relative;
   height: 100vh;
   width: 100vw;

@@ -7,8 +7,8 @@
           <ul>
             <li><strong>Programming Languages:</strong><br> Python, JavaScript, Java</li>
             <li><strong>Web Development:</strong><br> HTML, CSS, Node.js</li>
-            <li><strong>CTF Skills:</strong><br> Reverse Engineering, Binary Exploitation, Web Security</li>
-            <li><strong>Tools:</strong><br> Wireshark, Burp Suite, Kali Linux, Ghidra, Binary ninja</li>
+            <li><strong>CTF Skills:</strong><br> Just a beginner, all categories</li>
+            <li><strong>Tools:</strong><br> Kali Linux</li>
           </ul>
         </div>
         <div class="box">
@@ -47,6 +47,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  overflow-y: auto;
 }
 
 /* カード */
