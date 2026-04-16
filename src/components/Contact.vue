@@ -1,123 +1,136 @@
+```vue
 <template>
   <div>
-    <h2>Contact</h2>
+    <h1>Contact</h1>
     <div class="contact">
       <ul>
-        <li> <!--TODO: target="_blank"の意味は？-->
-          <img src="../assets/instagram.png" alt="Instagram" width="20" height="20">
-          <a href="https://www.instagram.com/nade.3356/" target="_blank">Instagram</a>
-        </li>
         <li>
-          <img src="../assets/facebook-logo.png" alt="Facebook" width="20" height="20">
-          <a href="https://www.facebook.com/profile.php?id=61577597019120" target="_blank">Facebook</a>
+          <a href="https://www.instagram.com/nade.3356/" target="_blank">
+            <img src="../assets/instagram.png" alt="Instagram">
+            <span>Instagram</span>
+          </a>
         </li>
+
         <li>
-          <img src="../assets/x-logo.png" alt="X" width="20" height="20">
-          <a href="https://x.com/Koufuu3356/" target="_blank">X</a>
+          <a href="https://www.facebook.com/profile.php?id=61577597019120" target="_blank">
+            <img src="../assets/facebook-logo.png" alt="Facebook">
+            <span>Facebook</span>
+          </a>
         </li>
+
         <li>
-          <img src="../assets/github-logo.png" alt="GitHub" width="20" height="20">
-          <a href="https://github.com/Koufuu15" target="_blank">GitHub</a>
+          <a href="https://x.com/Koufuu3356/" target="_blank">
+            <img src="../assets/x-logo.png" alt="X">
+            <span>X</span>
+          </a>
         </li>
-    </ul>
-  </div>
+
+        <li>
+          <a href="https://github.com/Koufuu15" target="_blank">
+            <img src="../assets/github-logo.png" alt="GitHub">
+            <span>GitHub</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* Contact セクション */
+
+/* 全体 */
 .contact {
-  max-width: 600px;
-  margin: auto;
-  background: white;
-  padding: 35px;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  width: 100%;
+  padding: 40px 5%;
 }
 
 /* 見出し */
-h2 {
+h1 {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 35px;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
   letter-spacing: 1px;
+  color: #222;
 }
 
-/* リスト */
+/* ★ここが重要：常に横展開 */
 .contact ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* ←最低2列 */
+  gap: 20px;
+
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* SNSカード */
+/* タブレット以上 */
+@media (min-width: 768px) {
+  .contact ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* PC */
+@media (min-width: 1024px) {
+  .contact ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* カード */
 .contact li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  padding: 14px 18px;
-  margin-bottom: 14px;
-
-  border-radius: 10px;
-
-  background: #f6f7fb;
-
-  transition: all 0.25s ease;
-}
-
-/* hover */
-.contact li:hover {
-  transform: translateX(6px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-}
-
-/* アイコン */
-.contact img {
-  width: 22px;
-  height: 22px;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
 }
 
 /* リンク */
 .contact a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 24px;
   text-decoration: none;
-  font-weight: 500;
   color: #333;
+  font-weight: 500;
 }
 
-/* Instagram */
+/* hover */
+.contact li:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+/* アイコン */
+.contact img {
+  width: 28px;
+  height: 28px;
+}
+
+/* SNS hover色 */
 .contact li:nth-child(1):hover {
   background: linear-gradient(45deg,#feda75,#d62976,#962fbf);
 }
+.contact li:nth-child(1):hover a { color: white; }
 
-.contact li:nth-child(1):hover a {
-  color: white;
-}
-
-/* Facebook */
 .contact li:nth-child(2):hover {
   background: #1877f2;
 }
+.contact li:nth-child(2):hover a { color: white; }
 
-.contact li:nth-child(2):hover a {
-  color: white;
-}
-
-/* X */
 .contact li:nth-child(3):hover {
   background: #111;
 }
+.contact li:nth-child(3):hover a { color: white; }
 
-.contact li:nth-child(3):hover a {
-  color: white;
-}
-
-/* GitHub */
 .contact li:nth-child(4):hover {
   background: purple;
 }
+.contact li:nth-child(4):hover a { color: white; }
 
-.contact li:nth-child(4):hover a {
-  color: white;
-}
 </style>
+```

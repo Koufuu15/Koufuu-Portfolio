@@ -1,100 +1,166 @@
 <template>
-  <div>
+  <div class="container">
     <h1>About Me</h1>
-      <div class="about-grid">
-        <div class="box">
-          <h3>Skills</h3>
-          <ul>
-            <li><strong>Programming Languages:</strong><br> Python, JavaScript, Java</li>
-            <li><strong>Web Development:</strong><br> HTML, CSS, Node.js</li>
-            <li><strong>CTF Skills:</strong><br> Just a beginner, all categories</li>
-            <li><strong>Tools:</strong><br> Kali Linux</li>
-          </ul>
-        </div>
-        <div class="box">
-          <h3>Basic Information</h3>
-          <ul>
-            <li><strong>Name:</strong><br> Koufuu</li>  <!--ゆくゆくはtabを入れてきれいにする-->
-            <li><strong>Occupation:</strong><br> Student, Application Engineer</li>
-            <li><strong>Interests:</strong><br> CTF (Capture The Flag) competitions</li>
-            <li><strong>Location:</strong><br> Hokkaido, Japan</li>
-            <li><strong>Birthday:</strong><br> 29th December, 2009</li>
-          </ul>
+
+    <div class="about-grid">
+      <div class="box">
+        <h3>Basic Information</h3>
+
+        <div class="info-list">
+          <div class="info-item">
+            <span class="label">Name</span>
+            <span class="value">Koufuu</span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Occupation</span>
+            <span class="value">Student, Application Engineer</span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Interests</span>
+            <span class="value">CTF (Capture The Flag)</span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Location</span>
+            <span class="value">Hokkaido, Japan</span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Birthday</span>
+            <span class="value">29 Dec 2009</span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Skills</span>
+            <div class="skills">
+              <span>Python</span>
+              <span>JavaScript</span>
+              <span>Java</span>
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>Node.js</span>
+              <span>Kali Linux</span>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* セクション */
-div {
-  max-width: 1000px;
+
+/* 全体 */
+.container {
+  max-width: 900px;
   margin: auto;
-  padding: 60px 20px;
+  padding: 40px 20px;
 }
 
 /* タイトル */
 h1 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 50px;
-  letter-spacing: 2px;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
   color: #222;
 }
 
 /* グリッド */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  overflow-y: auto;
+  grid-template-columns: 1fr;
 }
 
 /* カード */
 .box {
   background: white;
-  border-radius: 12px;
-  padding: 30px;
+  border-radius: 16px;
+  padding: 35px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: 0.3s;
 }
 
-/* ホバー */
 .box:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
 /* 見出し */
 .box h3 {
-  margin-top: 0;
   font-size: 1.4rem;
+  margin-bottom: 25px;
   border-bottom: 2px solid #eee;
   padding-bottom: 10px;
-  margin-bottom: 20px;
 }
 
-/* リスト */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* 情報リスト */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-li {
-  margin-bottom: 18px;
+/* 各行 */
+.info-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: start;
+}
+
+/* ラベル */
+.label {
+  font-weight: 600;
+  color: #666;
+}
+
+/* 値 */
+.value {
+  color: #222;
   line-height: 1.6;
 }
 
-/* strong */
-strong {
-  color: #111;
+/* スキルタグ */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-/* モバイル対応 */
+.skills span {
+  background: #f3f4f6;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+/* モバイル */
 @media (max-width: 768px) {
-  .about-grid {
+  .container {
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .box {
+    padding: 25px 20px;
+  }
+
+  .info-item {
     grid-template-columns: 1fr;
+  }
+
+  .value {
+    font-size: 0.95rem;
+  }
+
+  .skills span {
+    font-size: 0.8rem;
+    padding: 5px 8px;
   }
 }
 </style>

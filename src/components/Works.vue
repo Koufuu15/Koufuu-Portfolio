@@ -1,7 +1,7 @@
 <template>
   <div class="works-section">
 
-    <h2>Works</h2>
+    <h1>Works</h1>
 
     <div class="slider">
 
@@ -51,14 +51,16 @@ export default {
     const works = [
       {title:"Zenn",date:"Since 2025",category:"Blog",link:"https://zenn.dev/koufu"},
       {title:"Qiita",date:"Since 2025",category:"Blog",link:"https://qiita.com/nade_3356"},
-      {title:"picoCTF",date:"2026.3",category:"CTF",link:"https://github.com/0x00h/web-apps"},
-      {title:"Milldea, LLC",date:"Since 2025.10",category:"Part-time job",link:"https://www.milldea.com/"}
+      {title:"CognitiveHack Japan",date:"2026.3",category:"CTF",link:"https://cognitivehack-jp.cognitivectf.com/"},
+      {title:"Milldea, LLC",date:"Since 2025.10",category:"Part-time job",link:"https://www.milldea.com/"},
+      {title:"基本情報技術者",date:"2025.10",category:"Certification",link:"https://www.ipa.go.jp/shiken/kubun/fe.html"},
     ]
 
     const labels = {
       "Blog": "#B7E4C7",
       "CTF": "#A9C9FF",
-      "Part-time job": "#FFB4A2"
+      "Part-time job": "#FFB4A2",
+      "Certification": "#FFD6A5"
     }
     
     const current = ref(0)
@@ -87,8 +89,12 @@ export default {
   padding:30px 20px;
 }
 
-h2{
-  margin-bottom:40px;
+h1{
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 70px;
+  letter-spacing: 1px;
+  color: #222;
 }
 
 h3 a {
@@ -111,6 +117,7 @@ h3 a:hover {
 
 .slider{
   overflow-x:hidden;
+  overflow-y: visible;
 }
 
 .slides{
@@ -121,7 +128,8 @@ h3 a:hover {
 /* card */
 
 .card{
-  height: 200px;
+  width:auto;
+  height: 170px;
   min-width:33.33%;
   margin:0 10px;
 
