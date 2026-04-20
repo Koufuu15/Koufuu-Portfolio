@@ -3,18 +3,20 @@
 
     <h1>Works</h1>
 
-    <div class="carousel">
+    <div class="slider">
 
-      <!-- 左ボタン -->
-      <button class="nav prev" @click="prev" v-show="current!==0">‹</button>
+      <!-- ← -->
+      <button class="nav prev" @click="prev">‹</button>
 
-      <div class="track">
+      <div
+        class="slides"
+        :style="{ transform:`translateX(calc(-${current * (100/3)}% + 33.33%))` }"
+      >
 
         <div
+          class="card"
           v-for="(work,i) in works"
           :key="i"
-          class="card"
-          :class="{ active: i === current }"
         >
           <h3>
             <a :href="work.link" target="_blank" rel="noopener noreferrer">
@@ -32,29 +34,37 @@
 
       </div>
 
-      <!-- 右ボタン -->
-      <button class="nav next" @click="next" v-show="current!==works.length-1">›</button>
+      <!-- → -->
+      <button class="nav next" @click="next">›</button>
 
+    </div>
+
+    <!-- dots -->
+    <div class="dots">
+      <span
+        v-for="(w,i) in works"
+        :key="i"
+        :class="{active: i===current % works.length}"
+        @click="current=i"
+      ></span>
     </div>
 
   </div>
 </template>
 
 <script>
-import { ref } from "vue"
+import {ref,onMounted} from "vue"
 
 export default {
+
   setup(){
 
     const works = [
       {title:"Zenn",date:"Since 2025",category:"Blog",link:"https://zenn.dev/koufu",description:"技術ブログ。主にCTFやセキュリティに関する内容を投稿しています。"},
       {title:"Qiita",date:"Since 2025",category:"Blog",link:"https://qiita.com/nade_3356",description:"技術ブログ。学校のオーガニゼーションと結びついています。"},
       {title:"CognitiveHack Japan",date:"2026.3",category:"CTF",link:"https://cognitivehack-jp.cognitivectf.com/",description:"中高生向け、最大級のCTFです。現在は結果待ち。"},
-      {title:"インターンシップ",date:"Since 2025.10",category:"Part-time job",description:"Web開発を担当しています。"},
+      {title:"Milldea, LLC",date:"Since 2025.10",category:"Part-time job",link:"https://www.milldea.com/",description:"ソフトウェア開発の支援を行う会社です。"},
       {title:"基本情報技術者",date:"2025.10",category:"Certification",link:"https://www.ipa.go.jp/shiken/kubun/fe.html",description:"合格しました！"},
-      {title:"IELTS 6.5",date:"2025.6",category:"Certification",link:"https://ieltsjp.com/japan",description:"現在も勉強中です。"},
-      {title:"高等学校卒業程度認定試験",date:"2025.8",category:"Certification",link:"https://www.mext.go.jp/a_menu/koutou/shiken/",description:"何のために？ そんなの知りません。"},
-      {title:"書道六段",date:"2025.10 ~ now",category:"Certification",link:"http://syokyuin.net/",description:"地味に歴１０年"}
     ]
 
     const labels = {
@@ -63,7 +73,7 @@ export default {
       "Part-time job": "#FFB4A2",
       "Certification": "#FFD6A5"
     }
-
+    
     const current = ref(0)
 
     const next = ()=>{
@@ -74,18 +84,22 @@ export default {
       current.value = (current.value - 1 + works.length) % works.length
     }
 
-    return {works,labels,current,next,prev}
+    onMounted(()=>{
+      setInterval(()=> next(),4000)
+    })
+
+    return {works,current,labels,next,prev}
   }
+
 }
 </script>
 
 <style scoped>
 
-/* ===== layout ===== */
 .works-section{
-  width:100%;
-  padding:60px 5vw;
-  text-align:center;
+  max-width:1100px;
+  margin:auto;
+  padding:30px 20px;
 }
 
 h1{
@@ -104,84 +118,11 @@ h3 a:hover {
   text-decoration:underline;
 }
 
-.carousel{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* ===== track ===== */
-.track{
-  position:relative;
-  width:100%;
-  height:260px;
-}
-
-/* ===== card ===== */
-.card{
-  position:absolute;
-  top:50%;
-  left:50%;
-
-  width:70%;
-  max-width:600px;
-
-  transform:translate(-50%,-50%) scale(0.8);
-  opacity:0;
-
-  padding:30px;
-  border-radius:16px;
-
-  background:white;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-
-  transition:all .5s ease;
-}
-
-/* 中央 */
-.card.active{
-  transform:translate(-50%,-50%) scale(1);
-  opacity:1;
-  z-index:3;
-}
-
-/* 左右のカード */
-.card:not(.active){
-  opacity:0.4;
-  z-index:1;
-}
-
-/* ===== nav ===== */
-.nav{
-  z-index:10;
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-
-  width:45px;
-  height:45px;
-
-  border:none;
-  border-radius:50%;
-
-  background:white;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-
-  font-size:24px;
-  cursor:pointer;
-}
-
-.prev{ left:10px; }
-.next{ right:10px; }
-
-/* ===== label ===== */
 .label{
   display:inline-block;
-  padding:3px 10px;
-  border-radius:6px;
-  font-size:13px;
-  margin-top:10px;
+  padding:2px 8px;
+  font-size:14px;
+  border-radius:4px;
 }
 
 .description{
@@ -189,4 +130,79 @@ h3 a:hover {
   color:#555;
   margin-top:10px;
 }
+
+/* ===== slider ===== */
+.slider{
+  overflow:hidden; /* 横は切る（チラ見せ） */
+  position:relative;
+}
+
+.slides{
+  display:flex;
+  transition:transform .7s ease;
+}
+
+/* ===== card ===== */
+.card{
+  min-width:33.33%;
+  margin:0 10px;
+
+  height:250px;
+  padding:28px;
+
+  background:white;
+  border-radius:12px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  transition:all .3s ease;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* ===== nav ===== */
+.nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:10;
+
+  width:40px;
+  height:40px;
+
+  border:none;
+  border-radius:50%;
+  background:white;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+
+  cursor:pointer;
+  font-size:22px;
+}
+
+.prev{ left:10px; }
+.next{ right:10px; }
+
+/* ===== dots ===== */
+.dots{
+  text-align:center;
+  margin-top:25px;
+}
+
+.dots span{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  margin:0 6px;
+  border-radius:50%;
+  background:#ccc;
+  cursor:pointer;
+}
+
+.dots span.active{
+  background:#222;
+  transform:scale(1.3);
+}
+
 </style>
