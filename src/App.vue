@@ -48,14 +48,20 @@ function handleWheel(e) {
   if (scale.value > 1.5) scale.value = 1.5
 }
 
-  /*
-  animate({
-    targets: scale,
-    value: newScale,
-    duration: 300,
-    easing: 'easeOutQuad'
-  })
-  */
+let startY = 0
+
+function handleTouchStart(e) {
+  startY = e.touches[0].clientY
+}
+
+function handleTouchMove(e) {
+  const currentY = e.touches[0].clientY
+  const deltaY = startY - currentY
+
+  handleWheel({ deltaY }) // ← 疑似的にwheelイベント化
+
+  startY = currentY
+}
 
 function nextPanel() {
   currentIndex.value =
@@ -103,7 +109,11 @@ onMounted(() => {
     passive: true
   })
 
-  window.addEventListener('touchmove', handleWheel, {
+  window.addEventListener('touchstart', handleTouchStart, {
+    passive: true
+  })
+
+  window.addEventListener('touchmove', handleTouchMove, {
     passive: true
   })
 })
