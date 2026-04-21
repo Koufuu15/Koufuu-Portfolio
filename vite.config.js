@@ -5,6 +5,10 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   server: {
-    allowedHosts: ['impeding-clumsy-monogamy.ngrok-free.dev', 'localhost']
+    allowedHosts: 'all'
+  },
+  base: './',
+  build: {
+    outDir: 'docs'
   }
 })
