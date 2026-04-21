@@ -29,10 +29,11 @@ const visiblePanels = shallowRef([panels[0], panels[1]])
 const scrollAmount = 0.0005
 
 function handleWheel(e) {
-  if (e.deltaY > 0) {
-    scale.value -= scrollAmount * Math.abs(e.deltaY)
+  const adjustedDelta = e.deltaY * multiplier
+  if (adjustedDelta > 0) {
+    scale.value -= scrollAmount * Math.abs(adjustedDelta)
   } else {
-    scale.value += scrollAmount * Math.abs(e.deltaY)
+    scale.value += scrollAmount * Math.abs(adjustedDelta)
   }
 
   if (scale.value <= 0.5) {
@@ -48,14 +49,23 @@ function handleWheel(e) {
   if (scale.value > 1.5) scale.value = 1.5
 }
 
-  /*
-  animate({
-    targets: scale,
-    value: newScale,
-    duration: 300,
-    easing: 'easeOutQuad'
-  })
-  */
+const isTouchDevice =
+  'ontouchstart' in window || navigator.maxTouchPoints > 0
+const multiplier = isTouchDevice ? 2 : 1
+let startY = 0
+
+function handleTouchStart(e) {
+  startY = e.touches[0].clientY
+}
+
+function handleTouchMove(e) {
+  const currentY = e.touches[0].clientY
+  const deltaY = startY - currentY
+
+  handleWheel({ deltaY }) // ← 疑似的にwheelイベント化
+
+  startY = currentY
+}
 
 function nextPanel() {
   currentIndex.value =
@@ -103,7 +113,11 @@ onMounted(() => {
     passive: true
   })
 
-  window.addEventListener('touchmove', handleWheel, {
+  window.addEventListener('touchstart', handleTouchStart, {
+    passive: true
+  })
+
+  window.addEventListener('touchmove', handleTouchMove, {
     passive: true
   })
 })
@@ -114,7 +128,7 @@ onMounted(() => {
   position: relative;
   min-height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  
   touch-action: pan-y;
 }
 
@@ -126,6 +140,7 @@ onMounted(() => {
   top: 50%;
   transform-origin: center;
   translate: -50% -50%;
+  overflow: hidden;
 
   padding: 80px 10vw;
   display: flex;
