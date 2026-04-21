@@ -29,6 +29,7 @@
   background: #f7f7f8;
   text-align: center;
   position: relative;
+  transform: translateY(-40px);
 }
 
 /* アイコン */
@@ -37,11 +38,11 @@
 }
 
 .icon {
-  width: 140px; /* ← 大きくした */
+  width: 140px; 
   height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* 少し強調 */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
 }
 
 /* テキスト */
@@ -67,18 +68,23 @@
   animation: fadeIn 2s ease;
 }
 
-/* ← ここが重要 */
 .arrow-wrapper {
   margin-top: 8px;
   animation: bounce 1.5s infinite;
 }
 
 .arrow {
-  width: 14px; /* 少し大きく */
+  width: 14px; 
   height: 14px;
   border-right: 2px solid #888;
   border-bottom: 2px solid #888;
   transform: rotate(45deg); /* 回転だけ */
+}
+
+@media (pointer: coarse) {
+  .arrow {
+    transform: rotate(-135deg);
+  }
 }
 
 /* アニメーション */

@@ -1,4 +1,3 @@
-```vue
 <template>
   <div>
     <h1>Contact</h1>
@@ -42,21 +41,24 @@
 .contact {
   width: 100%;
   padding: 40px 5%;
+  transform: translateY(-40px);
+  box-sizing: border-box;
 }
 
 /* 見出し */
 h1 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   letter-spacing: 1px;
   color: #222;
 }
 
-/* ★ここが重要：常に横展開 */
+/* グリッド */
 .contact ul {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* ←最低2列 */
+  grid-template-columns: 1fr; 
+  
   gap: 20px;
 
   list-style: none;
@@ -67,16 +69,18 @@ h1 {
 /* タブレット以上 */
 @media (min-width: 768px) {
   .contact ul {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
   }
 }
 
-/* PC */
+/* PC */ 
 @media (min-width: 1024px) {
   .contact ul {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
 
 /* カード */
 .contact li {
@@ -84,10 +88,14 @@ h1 {
   background: white;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
+  aspect-ratio: 7 / 4; /* 横長の比率を維持 */
+  width: 100%; /* カードが親の幅いっぱいに広がる */
 }
 
 /* リンク */
 .contact a {
+  flex-direction: column;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,4 +141,4 @@ h1 {
 .contact li:nth-child(4):hover a { color: white; }
 
 </style>
-```
+

@@ -29,10 +29,11 @@ const visiblePanels = shallowRef([panels[0], panels[1]])
 const scrollAmount = 0.0005
 
 function handleWheel(e) {
-  if (e.deltaY > 0) {
-    scale.value -= scrollAmount * Math.abs(e.deltaY)
+  const adjustedDelta = e.deltaY * multiplier
+  if (adjustedDelta > 0) {
+    scale.value -= scrollAmount * Math.abs(adjustedDelta)
   } else {
-    scale.value += scrollAmount * Math.abs(e.deltaY)
+    scale.value += scrollAmount * Math.abs(adjustedDelta)
   }
 
   if (scale.value <= 0.5) {
@@ -48,6 +49,9 @@ function handleWheel(e) {
   if (scale.value > 1.5) scale.value = 1.5
 }
 
+const isTouchDevice =
+  'ontouchstart' in window || navigator.maxTouchPoints > 0
+const multiplier = isTouchDevice ? 2 : 1
 let startY = 0
 
 function handleTouchStart(e) {
@@ -124,7 +128,7 @@ onMounted(() => {
   position: relative;
   min-height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  
   touch-action: pan-y;
 }
 
@@ -136,6 +140,7 @@ onMounted(() => {
   top: 50%;
   transform-origin: center;
   translate: -50% -50%;
+  overflow: hidden;
 
   padding: 80px 10vw;
   display: flex;

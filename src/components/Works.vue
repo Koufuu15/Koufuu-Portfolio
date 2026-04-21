@@ -86,12 +86,13 @@ export default {
   width:100%;
   padding:60px 5vw;
   text-align:center;
+  transform: translateY(-40px);
 }
 
 h1{
   text-align:center;
   font-size:2.5rem;
-  margin-bottom:70px;
+  margin-bottom:60px;
   color:#222;
 }
 
