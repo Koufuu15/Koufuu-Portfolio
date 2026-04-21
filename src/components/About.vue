@@ -57,13 +57,14 @@
   max-width: 900px;
   margin: auto;
   padding: 40px 20px;
+  transform: translateY(-40px);
 }
 
 /* タイトル */
 h1 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   letter-spacing: 1px;
   color: #222;
 }
