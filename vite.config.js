@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     allowedHosts: 'all'
   },
-  base: './',
+  base: process.env.NODE_ENV === 'production' ? './' : '/',
   build: {
     outDir: 'docs'
   }
