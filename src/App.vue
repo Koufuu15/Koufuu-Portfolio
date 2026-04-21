@@ -102,15 +102,20 @@ onMounted(() => {
   window.addEventListener('wheel', handleWheel, {
     passive: true
   })
+
+  window.addEventListener('touchmove', handleWheel, {
+    passive: true
+  })
 })
 </script>
 
 <style scoped>
 .wrapper {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .panel {
